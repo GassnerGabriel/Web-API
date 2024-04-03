@@ -163,6 +163,7 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Controllers\FilmeController.cs" />
+    <Compile Include="Controllers\FilmesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\UsuarioController.cs" />
     <Compile Include="Controllers\UsuariosController.cs" />
@@ -247,6 +248,7 @@
     <Content Include="Scripts\jquery-3.4.1.slim.min.js" />
     <Content Include="Scripts\knockout-3.5.1.debug.js" />
     <Content Include="Scripts\knockout-3.5.1.js" />
+    <Content Include="Scripts\ko\filme.js" />
     <Content Include="Scripts\ko\usuario.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Web.config" />
@@ -269,6 +271,12 @@
     <Content Include="Views\Usuario\Edit.cshtml" />
     <Content Include="Views\Usuario\Index.cshtml" />
     <Content Include="Views\Usuario\Api.cshtml" />
+    <Content Include="Views\Filme\Create.cshtml" />
+    <Content Include="Views\Filme\Delete.cshtml" />
+    <Content Include="Views\Filme\Details.cshtml" />
+    <Content Include="Views\Filme\Edit.cshtml" />
+    <Content Include="Views\Filme\Index.cshtml" />
+    <Content Include="Views\Filme\Api.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

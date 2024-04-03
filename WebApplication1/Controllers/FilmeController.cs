@@ -2,104 +2,123 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
-using System.Data.Entity.Infrastructure;
 using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Threading.Tasks;
-using System.Web.Http;
-using System.Web.Http.Description;
+using System.Net;
+using System.Web;
+using System.Web.Mvc;
 using WebApplication1.Models;
 
 namespace WebApplication1.Controllers
 {
-    public class FilmeController : ApiController
+    public class FilmeController : Controller
     {
         private Somee db = new Somee();
 
-        // GET: api/Filme
-        public IQueryable<tb_Filme> Gettb_Filme()
+        // GET: Filme
+        public async Task<ActionResult> Index()
         {
-            return db.tb_Filme;
+            return View(await db.tb_Filme.ToListAsync());
         }
 
-        // GET: api/Filme/5
-        [ResponseType(typeof(tb_Filme))]
-        public async Task<IHttpActionResult> Gettb_Filme(int id)
+        // GET: Filme/Details/5
+        public async Task<ActionResult> Details(int? id)
         {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
             tb_Filme tb_Filme = await db.tb_Filme.FindAsync(id);
             if (tb_Filme == null)
             {
-                return NotFound();
+                return HttpNotFound();
             }
-
-            return Ok(tb_Filme);
+            return View(tb_Filme);
         }
 
-        // PUT: api/Filme/5
-        [ResponseType(typeof(void))]
-        public async Task<IHttpActionResult> Puttb_Filme(int id, tb_Filme tb_Filme)
+        // GET: Filme/Create
+        public ActionResult Create()
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
+            return View();
+        }
+        // GET: Filme/Api
+        public ActionResult Api()
+        {
+            return View();
+        }
 
-            if (id != tb_Filme.Codigo)
+        // POST: Filme/Create
+        // Para se proteger de mais ataques, habilite as propriedades específicas às quais você quer se associar. Para 
+        // obter mais detalhes, veja https://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> Create([Bind(Include = "Codigo,Titulo,Ano,Genero,Produtora")] tb_Filme tb_Filme)
+        {
+            if (ModelState.IsValid)
             {
-                return BadRequest();
-            }
-
-            db.Entry(tb_Filme).State = EntityState.Modified;
-
-            try
-            {
+                db.tb_Filme.Add(tb_Filme);
                 await db.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!tb_FilmeExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
+                return RedirectToAction("Index");
             }
 
-            return StatusCode(HttpStatusCode.NoContent);
+            return View(tb_Filme);
         }
 
-        // POST: api/Filme
-        [ResponseType(typeof(tb_Filme))]
-        public async Task<IHttpActionResult> Posttb_Filme(tb_Filme tb_Filme)
+        // GET: Filme/Edit/5
+        public async Task<ActionResult> Edit(int? id)
         {
-            if (!ModelState.IsValid)
+            if (id == null)
             {
-                return BadRequest(ModelState);
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-
-            db.tb_Filme.Add(tb_Filme);
-            await db.SaveChangesAsync();
-
-            return CreatedAtRoute("DefaultApi", new { id = tb_Filme.Codigo }, tb_Filme);
-        }
-
-        // DELETE: api/Filme/5
-        [ResponseType(typeof(tb_Filme))]
-        public async Task<IHttpActionResult> Deletetb_Filme(int id)
-        {
             tb_Filme tb_Filme = await db.tb_Filme.FindAsync(id);
             if (tb_Filme == null)
             {
-                return NotFound();
+                return HttpNotFound();
             }
+            return View(tb_Filme);
+        }
 
+        // POST: Filme/Edit/5
+        // Para se proteger de mais ataques, habilite as propriedades específicas às quais você quer se associar. Para 
+        // obter mais detalhes, veja https://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> Edit([Bind(Include = "Codigo,Titulo,Ano,Genero,Produtora")] tb_Filme tb_Filme)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Entry(tb_Filme).State = EntityState.Modified;
+                await db.SaveChangesAsync();
+                return RedirectToAction("Index");
+            }
+            return View(tb_Filme);
+        }
+
+        // GET: Filme/Delete/5
+        public async Task<ActionResult> Delete(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            tb_Filme tb_Filme = await db.tb_Filme.FindAsync(id);
+            if (tb_Filme == null)
+            {
+                return HttpNotFound();
+            }
+            return View(tb_Filme);
+        }
+
+        // POST: Filme/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> DeleteConfirmed(int id)
+        {
+            tb_Filme tb_Filme = await db.tb_Filme.FindAsync(id);
             db.tb_Filme.Remove(tb_Filme);
             await db.SaveChangesAsync();
-
-            return Ok(tb_Filme);
+            return RedirectToAction("Index");
         }
 
         protected override void Dispose(bool disposing)
@@ -109,11 +128,6 @@ namespace WebApplication1.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
-        }
-
-        private bool tb_FilmeExists(int id)
-        {
-            return db.tb_Filme.Count(e => e.Codigo == id) > 0;
         }
     }
 }

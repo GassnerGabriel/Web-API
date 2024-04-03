@@ -1,12 +1,55 @@
-﻿@section Scripts{
+﻿@model WebApplication1.Models.Usuario
+
+@section Scripts{
     @Scripts.Render("~/bundles/knockout")
     @Scripts.Render("~/bundles/usuario")
 }
+@using (Html.BeginForm())
+{
+    <div class="form-horizontal">
+        <h4>Usuário</h4>
+    </div>
+    <hr />
+    <div class="form-group">
+        @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", data_bind = "value: email"} })
+        </div>
+    </div>
 
+    <div class="form-group">
+        @Html.LabelFor(model => model.Senha, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.PasswordFor(model => model.Senha, new { htmlAttributes = new { @class = "form-control", data_bind = "value: senha , style: {border-color: confirmar() ? 'black' : 'red'} }" } })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="comfirmarSenha" class="control-label col-md-2">Confrirmar Senha</label>
+        <div class="col-md-10">
+            <input type="password" id="confirmarSenha" class="form-control" data-bind="value: confirmarSenha, style: {border-color: confirmar() ? 'black' : 'red'}" />
+        </div>
+    </div>
+    
+    <div class="form-group">
+        <label for=""></label>
+        <div class="col-md-10">
+            <input type="password" id="confirmarSenha" class="form-control" />
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="button" value="Salvar" class="btn btn-default" />
+        </div>
+    </div>
+}
 <table>
     <thead>
         <tr>
-            <th>Código </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Codigo);
+            </th>
             <th>Email </th>
             <th>Último Acesso </th>
             <th>Operações</th>

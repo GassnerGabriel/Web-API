@@ -11,12 +11,19 @@ namespace WebApplication1.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class Usuario
     {
+        [Display(Name = "Código")]
         public int Codigo { get; set; }
+
+        [Display(Name = "E-mail")]
         public string Email { get; set; }
+
         public string Senha { get; set; }
+
+        [Display(Name = "Último Acesso")]
         public Nullable<System.DateTime> UltimoAcesso { get; set; }
     }
 }

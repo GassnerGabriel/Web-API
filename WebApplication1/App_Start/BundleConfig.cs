@@ -15,6 +15,9 @@ namespace WebApplication1
                 "~/Scripts/knockout-{version}.js"));
             bundles.Add(new ScriptBundle("~/bundles/usuario").Include(
                 "~/Scripts/ko/usuario.js"));
+            bundles.Add(new ScriptBundle("~/bundles/filme").Include(
+                "~/Scripts/ko/filme.js"));
+                
 
             // Use a versão em desenvolvimento do Modernizr para desenvolver e aprender com ela. Após isso, quando você estiver
             // pronto para a produção, utilize a ferramenta de build em https://modernizr.com para escolher somente os testes que precisa.

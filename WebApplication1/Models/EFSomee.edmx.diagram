@@ -5,8 +5,8 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="71af9d80b5cb4b2bb51a78c4b007c85e" Name="Diagram1">
-        <EntityTypeShape EntityType="FilmeModel.tb_Filme" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="FilmeModel.Usuario" Width="1.5" PointX="3.375" PointY="0.75" />
+        <EntityTypeShape EntityType="FilmeModel.tb_Filme" Width="1.5" PointX="0.75" PointY="0.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

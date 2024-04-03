@@ -25,7 +25,7 @@ namespace WebApplication1.Models
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<tb_Filme> tb_Filme { get; set; }
         public virtual DbSet<Usuario> Usuario { get; set; }
+        public virtual DbSet<tb_Filme> tb_Filme { get; set; }
     }
 }
