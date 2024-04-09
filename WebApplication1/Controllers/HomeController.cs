@@ -12,7 +12,7 @@ namespace WebApplication1.Controllers
         {
             ViewBag.Title = "Home Page";
 
-            return View();
+            return View("Index");
         }
     }
 }
